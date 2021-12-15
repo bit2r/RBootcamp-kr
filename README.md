@@ -1,6 +1,6 @@
 # RBootcamp
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/dd2ce668-cae7-454a-92ea-977bc2461f5a/deploy-status)](https://app.netlify.com/sites/r-bootcamp/deploys) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/laderast/RBootcamp/binder)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/17a2fc8f-0e07-4a96-8bed-caaf45836968/deploy-status)](https://app.netlify.com/sites/r-bootcamp-kr/deploys) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bit2r/RBootcamp-kr/binder)
 
 The R-Bootcamp is meant to be a gentle and gradual introduction to manipulating and visualizing data in R using the tidyverse suite of packages. Topics covered include:
 
@@ -14,7 +14,7 @@ It is currently available at http://r-bootcamp-kr.netlify.com
 
 Documentation for the course framework is available at http://github.com/ines/course-starter-r
 
-The binder container responsible for executing code can be viewed here:  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/laderast/RBootcamp/binder?urlpath=rstudio)
+The binder container responsible for executing code can be viewed here:  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bit2r/RBootcamp-kr/binder?urlpath=rstudio)
 
 # Contributors
 
