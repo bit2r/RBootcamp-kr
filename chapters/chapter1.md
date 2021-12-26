@@ -117,10 +117,6 @@ geom_point() 함수에 매핑할 수 있는 미적 속성의 목록은 __[도움
 
 <exercise id="6" title="ggplot의 레이어인 기하학적 표현">
 
-We are not restricted to a single geom on a graph! You can think of geoms
-as layers on a graph. Thus, we can use the `+` symbol to add geoms to our
-base `ggplot()` statement. 
-
 우리는, 그리고 ggplot2는 그래프 표현을 단일 기하적 표현으로 제한하지 않습니다! 
 기하학적 표현(Geoms)을 그래프의 레이어(layers)로 생각할 수 있습니다. 따라서, `+` 심볼을 통해서 기본 `ggplot()` 구문에 기하학적인 표현을 추가할 수 있습니다.  
 
