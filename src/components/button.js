@@ -25,12 +25,12 @@ export const CompleteButton = ({ completed, toggleComplete, small = true }) => {
     return (
         <Button small={small} onClick={toggleComplete} className={buttonClassNames}>
             {!completed ? (
-                'Mark as completed'
+                '완료로 표시'
             ) : (
                 <>
                     <IconCheck width={14} height={14} className={classes.completeIcon} />{' '}
-                    <span className={classes.completeLabel}>Completed</span>{' '}
-                    <span className={classes.completeLabelHover}>Remove from completed</span>
+                    <span className={classes.completeLabel}>완료</span>{' '}
+                    <span className={classes.completeLabelHover}>완료에서 제거</span>
                 </>
             )}
         </Button>
