@@ -1,8 +1,8 @@
 library(dplyr)
 pets <- read.csv("data/pets.csv")
 
-##look at the pets data
+## pets 데이터 조회
 pets
 
-##use glimpse here
+## glimpse 함수를 이용한 데이터 구조 탐색
 glimpse(pets)
