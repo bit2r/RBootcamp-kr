@@ -3,7 +3,7 @@ biopics <- readRDS("data/biopics.rds")
 
 filteredBiopics <- filter(--------)
 
-#show number of rows in biopics
+# biopics의 데이터 건수를 조회합니다.
 
-#show number of rows in filteredBiopics
+# filteredBiopics의 데이터 건수를 조회합니다.
 

@@ -1,20 +1,17 @@
 ---
-title: 'Chapter 3: Introduction to dplyr' 
-description: Learn how to manipulate data into a ggplot2 friendly format
+title: 'Chapter 3: dplyr 입문' 
+description: 데이터를 ggplot2과 유사한 형식으로 조작하는 방법 학습
 prev: /chapter2
 next: /chapter4
 id: 3
 type: chapter
 ---
-<exercise id="1" title="Introduction to dplyr">
+<exercise id="1" title="dplyr 소개">
 
-We've been looking at datasets that fit the `ggplot2` paradigm nicely; however, most data we encounter 
-is really messy (missing values), or is a completely different format. In this chapter, we'll look 
-at one of the most powerful tools in the `tidyverse`: `dplyr`, which lets you manipulate data frames. 
-There is a function/action for most of the annoying tasks you have to use in data cleaning, which
-makes it super useful.
+우리는 `ggplot2` 패러다임에 부합하는 데이터 세트를 다뤄보았습니다. 그러나 우리가 접하는 대부분의 데이터는, 실제로는 지저분하거나(결측치 등이 포함되며) 완전히 다른 형식입니다. 이 챕터에서는 데이터 프레임을 조작할 수 있는, 'dplyr'라는 'tidyverse' 패키지 군의 가장 강력한 도구 중 하나를 살펴보겠습니다.
+dplyr는 데이터 클린징을 수행하는 대부분의 성가신 작업에 대응하는 함수들이 있어 매우 유용합니다.
 
-In particular, we're going to look at six fundamental verbs/actions in `dplyr`:
+특히, `dplyr`에서 제공하는 다음의 여섯 가지 기본적인 동작을 살펴보겠습니다.:
 
 - `filter()`
 - `mutate()`
@@ -22,174 +19,176 @@ In particular, we're going to look at six fundamental verbs/actions in `dplyr`:
 - `arrange()`
 - `select()`
 
-Along the way, we'll do some data manipulation challenges. You'll be a `dplyr` expert in no time!
+이 과정에서 우리는 몇 가지의 데이터 조작 과제를 수행할 것입니다. 당신은 곧 `dplyr` 전문가가 될 것입니다!
 
-You will want to keep this `dplyr` cheat sheet open in a separate window to remind you about the syntax:
-[dplyr cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+`dplyr` 문법에 대해서 리마인드 하기 위해서 [dplyr 치트시트(컨닝 페이퍼)](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)가 유용할 수 있습니다. 별도의 창에 띄워두면 많은 도움이 됩니다. 
 
-Also, remember: if you need to know the variables in a `data.frame` called `biopics` you can always use 
+(역자 주) dplyr 치트시트가 2021년 7월 업데이트 되었습니다. 업데이트된 것을 원하시면, [최신 dplyr 치트시트](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)를 사용하세요. 서로 보완재가 될 수 있어 공유합니다.
+
+또한 `데이터 프레임`의 변수 이름을 알 필요가 있을 경우에는 다음 예제처럼 컬럼 이름을 조회하십시요. `biopics` `데이터 프레임`의 모든 변수 이름을 얻을 수 있습니다.: 
 
 ```{r}
 colnames(biopics)
 ```
 
-If you want more information on a function such as `mutate()`, you can always ask for help:
+만약 함수에 대한 자세한 정보를 원할 경우에는 다음 `mutate()` 함수 `도움말`을 호출하는 것처럼 도움말을 요청하십시요.:
 
 ```{r}
 ?mutate
 ```
 
-Move on to the next exercise!
+다음 학습으로 넘어갑니다!
 
 </exercise>
 
-<exercise id="2" title="A Little Bit about assignment">
+<exercise id="2" title="할당에 대한 이해">
 
-In order to do the following exercises, we need to learn a little bit about how to assign 
-the output of a function to a variable.
+다음 학습을 수행하기 위해서는, 함수의 계산 결과를 변수에 할당하는 방법을 배울 필요가 있습니다. 
 
-For example, we can assign the output of the operation `1 + 2` to a variable called `sumOfTwoNumbers`
-using the `<-` operator. This is called the `assignment` operator.
+예를 들어, `<-` 연산자를 사용해서 `1 + 2` 연산의 결과를 `sumOfTwoNumbers`라는 변수에 `할당`할 수 있습니다. 이 연산자를 `할당 연산자`라 부릅니다.
 
-You can also use `=` to assign a value to a variable, but I find it makes my code a bit confusing, because
-there is also `==`, which tests for equality.
+`=`를 사용해서 값을 변수에 할당할 수도 있습니다. 그러나 이 방법은 값의 같음을 테스트하는 `비교 연산자` `==`와 혼동할 수 있습니다. 
 
 ```{r}
 sumOfTwoNumbers <- 1 + 2
 ```
-Once we have something assigned to a variable, we can use it in other expressions:
+
+변수에 할당된 무엇인가는 아래 예제처럼 다른 표현식에서 사용할 수 있습니다.
 
 ```{r}
 sumOfThreeNumbers <- sumOfTwoNumbers + 3
 ```
-This is the bare basics of assignment. We'll use it in the next exercises to evaluate the output
-of our `dplyr` cleaning.
 
-### Instructions
+이것이 할당의 기본적인 사항입니다. 우리는 `dplyr`로 데이터를 정제할 때, 할당 연산자를 사용할 것입니다.
 
-+ Assign `newValue` the value of `10`. 
-+ Then use `newValue` to calculate the value of `multValue` by calculating `newValue * 5`. 
-+ Show `multValue`.
+(역자 주) R은 여기서 언급하지 않은 연산자를 포함하요 꿰 많은 많은 할당 연산자를 제공합니다. 그러나 일반적인 값의 할당에서는 할당 연산자로는 `<-`를 사용하십시요. 그리고 함수 안에서 인수에 인수값을 대입하는 경우에만 `=` 연사자를 사용하십시요. 이것은 암묵적으로 룰로 R 고수들이 권장하는 방법입니다.  
+
+### 할당 연산자 실습 지침
+
++ `newValue`에 `10`을 할당합니다. 
++ 그런 다음, `newValue * 5`을 계산하여 결과를 `multValue`에 할당합니다. 
++ `multValue`의 결과를 출력합니다.
 
 <codeblock id="03_02">
 </codeblock></exercise>
 
 
-<exercise id="3" title="Let's look at some data and ways to manipulate it.">
+<exercise id="3" title="몇 가지 데이터 조작 방법">
 
-We're going to use the `biopics` dataset in the `fivethirtyeight` package to do learn `dplyr`. This is a dataset of 761 different biopic movies. 
+W우리는 `fivethirtyeight` 패키지의 `biopics` 데이터 세트를 사용하여 `dplyr` 학습을 수행할 것입니다. 이 데이터 세트는 서로 다른 761 개의 전기 영화(유명 인사의 생애에 대한 영화) 정보를 담고 있습니다.
 
-## Instructions
+### 학습 지침
 
-+ Run a `summary` on the `biopics` dataset. It's already loaded up for you. 
-+ How many categories are in the `country` variable?
++ `biopics` 데이터 세트로 `summary`를 실행합니다.  이미 데이터는 준비해 놓았습니다. 
++ `country`변수에는 몇 개의 범주(수준, levels)가 있나요?
 
 <codeblock id="03_03">
-Use the `levels()` function to count the categories.</codeblock>
+`levels()` 함수를 사용하면 범주의 개수를 셀 수 있습니다.</codeblock>
 </exercise>
 
 <exercise id="4" title="dplyr::filter()">
 
-`filter()` is a very useful `dplyr` command. It allows you to subset a `data.frame` based on variable criteria.
+`filter()`는 매우 유용한 `dplyr`의 명령입니다. 이것은 변수의 기준(논리 조건식)에 따라서 `데이터 프레임`의 부분집합을 생성합니다.
 
-For example, if we wanted to subset `biopics` to those movies that were made in the `UK` we'd use the following statement:
+예를 들면, `biopics` 데이터 세트 중에서 영국(`UK`)에서 제작된 영화를 부분집합으로 추출하려면 다음의 dplyr 구문(코드)을 사용합니다.
 
 ```{r}
-#subset the data using filter
-biopicsUK <- filter(biopics, country=="UK")
-#confirm that we have subsetted correctly
+# filter를 이용한 부분집합 생성
+biopicsUK <- filter(biopics, country == "UK")
+# 올바르게 부분집합이 추출되었는지 확인
 biopicsUK
 ```
 
-Three things to note here: 
+여기서 주의해야할 세 가지 사항: 
 
-+ The first argument to `filter()` is the dataset. We'll see another variation of this in a second.
-+ For those who are used to accessing `data.frame` variables by `$`, notice we don't have to use `biopics$country`. Instead, we can just use the variable name `country`.
-+ Our filter statement uses `==`. Remember that `==` is an equality test, and `=` is to assign something. (confusing the two will happen to you from time to time.)
++ `filter()`의 첫번 째 인수값은 데이터 세트입니다.잠시 후에 우리는 또다른 변형을 볼 수 있을 겁니다.
++ 'biopics$country'처럼, 데이터 프레임의 변수를 액세스하기 위해서 `$` 연산자를 사용하지 않아도 됩니다. 대신, 단지 변수 이름인 `country`만 사용하면 됩니다.  
++ filter 구분에는 `==`를 사용합니다. `==`은 같음을 검사하는 비교 연산자입니다. 그리고 `=`는 어떤 값을 할당하는 할당 연산자임을 기억하십시요.(이 두 가지를 혼동하는 경우가 종종 있습니다.)
 
-###Instructions
+### 학습 지침
 
-+ Filter `biopics` so that it only shows `Criminal` movies (you'll have to use the `type_of_subject` variable in `biopics`. 
-+ Show how many rows are left using `nrow(crimeMovies)`.
++ `Criminal` 영화만 표시되도록 `biopics`를 필터링합니다.(당신은 `biopics`의 변수인 `type_of_subject`를 사용해야 합니다.)
++ `nrow(crimeMovies)`를 사용해서 몇 건이 필터링되었는지 확인합니다.
 
 <codeblock id="03_04">
 </codeblock>
 </exercise>
 
-<exercise id="5" title="Comparison operators and chaining comparisons">
+<exercise id="5" title="비교 연산자와 결합 연산자">
 
-Let's look at the following `filter()` statement:
+다음의 `filter()` 구문을 살펴 보세요.:
 
 ```{r}
 filter(biopics, year_release > 1980 & 
     type_of_subject == "Criminal")
 ```
 
-Three things to note:
+여기서 주의해야할 세 가지 사항: 
 
-+ We used the comparison operator `>`. The basic comparisons you'll use are `>` (greater than), `<` (less than), `==` (equals to) and `!=` (not equal to) 
-+ We also chained on another expression, `type_of_subject == "Criminal"` using `&` (and). The other chaining operator that you'll use is `|`, which corresponds to OR. 
-+ Chaining expressions is where `filter()` becomes super powerful. However, it's also the source of headaches, so you will need to carefully test your chain of expressions.
++ 우리는 비교 연산자인 `>`를 사용했습니다. 그리고 기본 비교 연산자에는 `>` (크다), `<` (작다), `==` (같다) and `!=` (같지 않다)가 있습니다. 
++ 우리는 `&` 연산자(AND)를 사용하여 또다른 표현식인 `type_of_subject == "Criminal"`을 연결했습니다. 그리고 당신이 사용해야 할 또 다른 결합 연산자는 OR에 해당하는 `|` 연산자입니다.
++ 표현식을 결합하는 것은 `filter()`의 사용에 있어서 아주 강력한 기능이 될 것입니다. 하지만 자칫 잘못 사용하면 논리적인 오류가 포함되어 예기치 않는 결과가 발생하는, 골치거리가 될 수도 있습니다. 그러므로 여러분은 결합 표현식을 사용할 때, 실수가 없도록 주의깊게 사용해야 합니다.
 
-###Instructions
+(역자 주) 원문에는 `&`와 `|`을 결합 연산자(chaining operators)라고 표현했는데, 이것은 올바른 표현이 아닙니다.
+`&`와 `|`는 논리 연산자(logical operators)입이다. `&`은 논리 곱인 (AND)를 의미하고,  `|`은 논리 합인 (OR)를 연산합니다. 논리 연산자는 `논리 참`인 `TRUE`와 `논리 거짓`인 `FALSE`를 `피연산자로 사용`하는 연산자입니다. 연산자 우선 순위 중 비교 연산자가 논리 연산자보다 앞서므로, 비교 연산자의 표현식이 먼저 수행되어 논리 참/거짓을 반환하고, 이를 피연사자로 삼아서 논리 연산자가 수행되는 것입니다. 나중에 수행되는 논리 연산자가 마치 앞과 뒤의 비교 연산자를 결합하는 구조로 보여, 결합 연산자라 표현한 것 같습니다. (그러나 이 학습에서는 원문의 오류는 잡지만, 원 저작자의 의견을 존중하는 차원에서 원 저작자의 표현을 그대로 사용하였습니다.)
 
-+ Add another comparison to the chain using `&`. Use `person_of_color == FALSE`. 
-+ Show how many rows are left from your filter statement.
+### 학습 지침
+
++ `&`를 사용해서 다른 표현식 `person_of_color == FALSE`을 연결합니다.
++ 필터링 결과가 몇 건의 관측치를 반환하는지 출력하세요. 
 
 <codeblock id="03_05">
 </codeblock></exercise>
 
-<exercise id="6" title="Quick Quiz about Chaining Comparisons">
+<exercise id="6" title="비교 연산의 연결 퀴즈">
 
 <codeblock id = "03_06">
 </codeblock>
 
-Which statement should be the larger subset? Try them out in the console if you're not sure.
+어떤 필터링이 더 많은 건수의 부분집합을 반환할까요? 잘 모르겠으면 콘솔을 실행해 보세요.
 
 <choice>
-<opt text="filter(biopics, year_release > 1980 & type_of_subject == 'Criminal')">Nope. This should be the smaller subset (because you're applying both criteria)
+<opt text="filter(biopics, year_release > 1980 & type_of_subject == 'Criminal')">두 가지 기준을 모두 적용하므로 이 부분 집합이 더 작습니다.
 </opt>
-<opt text="filter(biopics, year_release > 1980 | type_of_subject == 'Criminal')" correct="true">Good Job! Yes, when you use an OR (|), it results in a larger subset. Let's move on.
+<opt text="filter(biopics, year_release > 1980 | type_of_subject == 'Criminal')" correct="true">논리 합(OR, `|`)을 사용하면, 논리 곱보다 부분집합이 더 커집니다.  
 </opt></choice>
 </exercise>
 
-<exercise id="7" title="The %in% operator">
+<exercise id="7" title="%in% 연산자">
 
-What if you wanted to select for multiple values? You can use the `%in%` operator. Here we put the values into a `vector` with the `c()` function, which concatentates the values together into a form that R can manipulate. Note that these values have to be exact and the case has to be the same (that is, "UK", not "Uk" or "uk") for the matching to work.
+범주형 변수에서 여러 범주(수준, levels)를 선택하려면 어떻게 할까요? 다음처럼 `%in%` 연산자를 사용하면 됩니다.
+선택해야할 여러 값들은 `c()` 함수를 사용해서 `벡터`로 만들어야 합니다. 그리고 값을 매치하기 위해서 선택해야하는 값은 정확해야 하며, 대소문자를 구분하니 대소문자도 일치해야 합니다. ("UK", "Uk", "uk"는 서로 다른 값입니다)
 
 ```{r}
 biopicsUSUK <- biopics %>% filter(country %in% c("US", "UK"))
 ```
 
-### Instructions
+### 학습 지침
 
-+ Pick out the `Musician`, `Artist` and `Singer` movies from `type_of_subject`. 
-+ Assign the output to `biopicsArt`.
-
++ `type_of_subject` 변수의 값이 `Musician`, `Artist`, `Singer`인 영화를 추출합니다. 
++ 추출한 결과를 `biopicsArt`에 할당하세요.
 
 
 <codeblock id="03_07">
 </codeblock></exercise>
 
-<exercise id="8" title="Removing Missing Values">
+<exercise id="8" title="결측치 제거">
 
-One trick you can use `filter()` for is to remove missing values. Usually missing values are
-coded as `NA` in data. You can remove rows that contain `NAs` by using `is.na()`. For example:
+`filter()`를 활용할 수 있는 트릭 중에 결측치를 제거하는 것이 있습니다. R 데이터에서 결측치는 `NA`로 표현합니다. 당신은 `is.na()`를 이용해서 `NA`가 포함된 데이터를 제거할 수 있습니다. 
+예를 들면 다음과 같습니다.:
 
 ```{r}
 filter(biopics, !is.na(box_office))
 ```
 
-Note the `!` in front of `is.na(box_office)`. This `!` is known as the NOT operator. Basically,
-it switches the values in our `is.na` statement, making everything that was `TRUE` into `FALSE`, 
-and everything `FALSE` into `TRUE`. We want to keep everything that is not `NA`, so that's why 
-we use the `!`. 
+is.na(box_office) 앞에 있는 !는 논리 부정(NOT)을 나타내는 논리 연산자입니다. 이것은 is.na 구문의 결과에서 모든 TRUE를 FALSE로, 모든 FALSE를 TRUE로 바꿉니다. 
+NA가 아닌 모든 것을 유지하고 싶어서 논리 부정 연산자 !를 사용하는 것입니다.
 
-### Instructions
+### 학습 지침
 
-+ Filter `biopics` to remove the NAs, and assign the output to `filteredBiopics`. 
-+ Compare the number of rows in `biopics` to `filteredBiopics`. 
-+ How many missing values did we remove?
++ `biopics`에서 NA를 제거하는 필터링을 수행하세요,그리고 결과를 `filteredBiopics`에 할당합니다.
++ `biopics`의 건수와 `filteredBiopics`의 건수를 비교합니다. 
++ 몇 건의 결측치를 제거했나요?
 
 
 
@@ -198,35 +197,31 @@ we use the `!`.
 
 <exercise id="9" title="dplyr::mutate()">
 
-`mutate()` is one of the most useful `dplyr` commands. You can use it to transform data 
-(variables in your `data.frame`) and  add it as a new variable into the `data.frame`. 
-For example, let's calculate the total `box_office` divided by the `number_of_subjects` 
-to normalize our comparison as `normalized_box_office`: 
+`mutate()`는 `dplyr`에서 유용한 기능 중 하나입니다. 당신은 이 기능을 통해서 데이터(`데이터 프레임`에서의 변수)를 변환하고, 그것을 새로운 변수 이름으로 `데이터 프레임`에 추가할 수 있습니다.
+예를 들어, `box_office`을 `number_of_subjects`로 나누어 표준화 시킨 값을 `normalized_box_office`에 할당합니다: 
 
 ```{r}
 biopics2 <- mutate(biopics, normalized_box_office = box_office/number_of_subjects)
 ```
-What did we do here? First, we used the `mutate()` function to add a new column into our 
-`data.frame` called `normalized_box_office`. This new variable is calculated per row by dividing
-`box_office` by `number_of_subjects`.
+여기서 우리는 무슨 작업을 수행했을까요? 
+우리는 `mutate()` 함수를 사용하여 `normalized_box_office`라는 새로운 열을 `데이터 프레임`에 추가했습니다.
+이 신규 변수는 모든 행(관측치)에 대해서 `box_office`을 `number_of_subjects`로 나눈 값으로 만들어집니다.
 
-### Instructions
+### 학습 지침
 
-+ Try defining a new variable `race_and_gender` by pasting together `subject_race` and `subject_sex`
-into a new `data_frame` called `biopics2`. 
-+ Show the first few rows using `head()` so you can confirm that you added this new variable correctly.
++ `subject_race`와 `subject_sex`의 문자열을 묶어서 신규 변수 `race_and_gender`을 파생합니다. 그리고 `biopics2`라는 이름의 새로운 `데이터 프레임`을 만드세요.
++ 신규로 파생된 변수가 정확하게 만들어졌는지 확인하기 위해 `head()` 함수로 앞의 몇 건을 조회하세요.
 
-Remember, you can use the `paste()` function to paste two strings together.
+두 개의 문자열을 묶기 위해서는 `paste()` 함수를 사용하면 됩니다.
 
 <codeblock id="03_09">
 `paste(subject_race, subject_sex)`
 </codeblock>
 </exercise>
 
-<exercise id="10" title="You can use mutated variables right away!">
+<exercise id="10" title="파생한 변수를 바로 사용할 수 있습니다!">
 
-The nifty thing about `mutate()` is that once you define the variables in the statement,
-you can use them right away, in the same `mutate` statement. For example, look at this code:
+`mutate()`의 가장 큰 특징이자 장점은,  `mutate()` 구문에서 생성한 신규 변수를 구문 안에서 바로 사용할 수 있다는 것입니다. 다음 코드로 확인해 보세요.:
 
 ```{r}
 mutate(biopics, 
@@ -234,41 +229,43 @@ mutate(biopics,
     box_office_subject = paste0(box_office_year, subject))
 ```
 
-Notice that we first defined `box_office_year` in the first part of the `mutate()` statement,
-and then used it right away to define a new variable, `box_office_subject`. 
+`mutate()` 구문의 첫번 째 영역에서 `box_office_year`을 정의하였고, 바로 이것을 두번 째 영역에서 `box_office_subject` 변수를 만드는 데 사용했습니다.
 
-### Instructions
+(역자 주) 이 기능은 한번의 `mutate()` 함수의 호출에서 여러 변수를 파생할 수 있다는 것을 의미합니다. 그리고 기술한 표현식의 순서대로 변수가 만들어지며, 후 순위의 표현식에서는 선 순위에 만들어진 변수를 사용할 수 있습니다. `mutate()`의 이 기능은 실무에서 유용하게 응용됩니다. 한번의 함수 호출에서 순차적으로 새로운 변수를 만들면, 불필요한 반복적인 연산을 줄일 수 있기 때문입니다. 데이터를 조작 전문 도구인 SQL이나 여러 툴에서 지원하지 않는 기능입니다.
 
-+ Define another variable called `box_office_y_s_num` in the same `mutate()` statement by taking  `box_office_year` and dividing it by `number_of_subjects`. 
-+ Assign the output to `mutatedBiopics`.
+### 학습 지침
+
++ 하나의 `mutate()` 구문에서 먼저 만들어진 `box_office_year` 변수를 `number_of_subjects`로 나눠 `box_office_y_s_num`라는 신규 변수를 정의합니다.
++ 결과를 `mutatedBiopics`에 할당합니다.
 
 <codeblock id="03_10">
 Add `box_office_y_s_num=box_office_year/number_of_subjects` to the statement below.
 </codeblock>
 </exercise>
 
-<exercise id="11" title="Another Use for `mutate()`">
+<exercise id="11" title="`mutate()`의 또다른 용도">
 
-What is this statement doing? Try it out in the console if you're not sure.
+아래 코드는 어떤 작업을 수행할까요? 잘 모르겠으면 콘솔에서 한 번 실행해보세요.
+
 
 ```{r}
-mutate(biopics, subject= paste(subject, year_release))
+mutate(biopics, subject = paste(subject, year_release))
 ```
 
 <codeblock id="03_11">
 </codeblock>
 
 <choice>
-<opt text="We are defining a brand-new variable with the same name in our dataset and keeping the old variable as well" correct="true">
-Great! Now you know you can also use `mutate()` to process variables in place.</opt>
-<opt text="We are processing the variable `subject` and saving it in place">
-Try it out. Did we add another variable?</opt>
+<opt text="데이터 세트에서 동일한 이름을 가진 새로운 변수를 정의하고, 이전 변수도 유지합니다.">
+한 번 실행해보세요. 우리가 변수를 하나 더 추가했나요?</opt>
+<opt text="변수 `subject`를 변형하고 그 결과를 다시 `subject`에 넣습니다." correct="true">
+굉장합니다! 이제 `mutate()`를 사용해서 기존 변수의 값을 변경할 수 있음을 알았습니다.</opt>
 </choice>
 </exercise>
 
-<exercise id="12" title="The difference between `filter()` and `mutate()`">
+<exercise id="12" title="`filter()`와 `mutate()`의 차이점">
 
-What is the difference between these two statements? Try them out in the console if you're not sure.
+이 두 코드의 차이점은 무엇인가요? 잘 모르겠으면 콘솔에서 한 번 실행해보세요.
 
 ```{r}
 biopics %>% 
@@ -285,39 +282,41 @@ biopics %>%
 </codeblock>
  
 <choice>
-<opt text="The first statement filters the data, whereas the second statement defines a new boolean variable." correct="true">Yes, this is correct! We're identifying a new variable that we can use to flag the data.
+<opt text="첫 번째 코드는 데이터를 필터링하는 반면 두 번째 코드는 새 부울(boolean) 변수를 정의합니다." correct="true">플래그를 지정하는 데 사용할 수 있는 새로운 변수를 정의합니다.
 </opt>
-<opt text="The second statement is more confusing.">
-    Not the case! Try comparing the number of rows.
+<opt text="두 번째 코드가 더 복잡합니다.">
+    아닙니다.! 코드의 행 수를 비교해 보세요.
 </opt>
 </choice>
 </exercise>
 
-<exercise id="13" title="The Pipe Operator: %>%">
+<exercise id="13" title="파이프 연산자: %>%">
 
-We're going to introduce another bit of `dplyr` syntax, the `%>%` operator. `%>%` is called a `pipe` operator. 
-You can think of it as being similar to the `+` in a `ggplot2` statement.
+`dplyr` 문법의 또 다른 한 부분인 `%>%`연산자를 소개합니다. `%>%`을 `파이프 연산자(pipe operator)`라 부릅니다. `ggplot2` 구문에서의 `+`와 비슷한 기능을 한다고 생각하면 됩니다.
 
-What `%>%` does is that it takes the output of one statement and makes it the input of the next statement. When I'm describing it, I think of it as a "THEN". For example, I read the following expression
+`%>%` 연산자는 앞 구문 실행 결과인 출력값을 가져다가 다음 구문의 입력값으로 사용합니다. 그러므로 파이프 연산자를 사용한 아래 구문은,
 
 ```{r}
 biopics %>% filter(race_known == "Known") %>%
     mutate(poc_code = as.numeric(person_of_color))
 ```
-As: 
-- I took the `biopics` data, 
-- THEN  I `filter`ed it down with the `race_known == "Known"` criteria and 
-- THEN I defined a new variable called `poc_code` with `mutate()`.
+다음처럼 해석할 수 있습니다.: 
+- `biopics` 데이터를, 
+- `filter()`에 보내서, 입력받은 데이터에 `race_known == "Known"` 조건의 필터 연산을 수행한 후 그 결과를, 
+- `mutate()`에 보내서, 입력받은 데이터로 `poc_code` 라는 새 변수를 정의합니다.
 
-Note that `filter()` doesn't have a `data` argument, because the `data` is `piped` into `filter()`. Same thing for `mutate()`.
+파이프 연산을 적용하면, `filter()`에 `data` 인수를 기술하지 않습니다. 왜냐하면 `data` 인수값은 파이프에 의해서 `filter()`에 자동으로 공급되기 때문입니다. `mutate()`도 마찬가지입니다.
 
-`%>%` allows you to chain multiple verbs in the `tidyverse`. It's one of the most powerful things about the `tidyverse`. 
+`tidyverse`의 파이프 연산자 `%>%`는 `tidyverse` 패키지군의 여러 함수를 연결할 수 있습니다. 이것은 `tidyverse`의 가장 강력한 기능 중의 하나입니다. 
 
-In fact, having a standardized chain of processing actions is called a **pipeline**. Making pipelines for a data format is great, because you can apply that pipeline to incoming data that has the same formatting and have it output in a `ggplot2` friendly format.
+어떤 처리를 수행하는 작업의 표준화된 연결을 **파이프라인(pipeline)**이라 합니다. 데이터 조작을 하는 일련의 과정을 파이프라인으로 만드는 것은 좋은 시도입니다. 수신 데이터에 파이프라인을 적용하면 `ggplot2`과 유사한 방법으로, 동일한 포맷을 갖는 데이터를 출력으로 보낼 수 있습니다.
 
-### Instructions
+(역자 주) **파이프라인(pipeline)**은 마치 여러 개의 파이프를 연결하여 송유관을 만드는 작업과 유사합니다. 여러 마디의 파이프를 심리스(Seamless, 끊김없이 매끄럽게)하게 연결하여 원하는 장소에 안정하게 원유를 공급하는 송유관 공사를 연상하면 쉽습니다. 즉, 앞 마디의 파이프를 통과(출력)한 원유가 다음 마디의 파이프에 유입(입력)되는 과정을 거쳐서 최종 목적지로 원유를 운반하는 것처럼, 여러 데이터 조작 작업이 연결되어 최종 원하는 데이터를 생성하는 것입니다. 
 
-+ Use `%>%` to chain `biopics` into a `filter` to select (`country=="US"`) 
+
+### 학습 지침
+
++ `%>%`을 사용해서 `filter`에 `biopics`을 연결한 후 (`country=="US"`) 조건을 대입하세요. 
 
 <codeblock id="03_13">
 </codeblock>
@@ -341,7 +340,7 @@ any rows that have `NA` values in `box_office` that may confound our calculation
 Let's ask a tough question. Is there a difference between mean `box_office` 
 between the two `subject_sex` categories? 
 
-### Instructions
+### 학습 지침
 
 First use `filter()` to remove the NA values. Then, use `group_by()` and `summarize()` to 
 calculate the mean `box_office` by `subject_sex`, naming the summary
@@ -383,7 +382,7 @@ biopics %>% arrange(country, year_release)
 This statement will sort the data by `country` first, and then within each `country` category, 
 it will sort by `year_release`.
 
-### Instructions
+### 학습 지침
 
 Sort `biopics` by `year_release` then by `country`. Assign the output to `biopics_sorted`.
 
@@ -406,7 +405,7 @@ biopics %>% select(movieTitle=title, box_office)
 ```
 Here, we're just extracting two columns (`title_of_movie`, `box_office`). Notice we also renamed `title` to `movieTitle`.
 
-### Instructions
+### 학습 지침
 
 Use `select` to extract the following variables: `title` (rename it `movieTitle`), `box_office` and `subject_sex` and assign them to a new table called `threeVarTable`.
 
@@ -434,7 +433,7 @@ Now here comes the fun part. Chaining `dplyr` verbs together to accomplish some 
 
 For a reference while you work, you can use the `dplyr` cheatsheet here: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
-### Instructions
+### 학습 지침
 
 + For the `biopics` data, `filter()` the data so that we only cover movies from 2000 to 2014. (`year_release` is the variable you want.)
 + Filter out the NAs in `box_office`.
@@ -451,7 +450,7 @@ Answer the question: Do movies where we know the race is known (`race_known` == 
 money than movies where the race is not known (`race_known`== FALSE) grouped by country? 
 Which `race_known`/`country` combination made the highest amount of money?
 
-### Instructions
+### 학습 지침
 
 + You'll need to do a `filter` step first to remove `NA` values from `box_office` before you do  anything. 
 + Then think of what variables you need to `group_by`. 
@@ -487,7 +486,7 @@ in the data.
 
 Are you sick of `biopics` yet? I promise this is the last time we use this dataset.
 
-### Instructions
+### 학습 지침
 
 + First, filter `biopics` to have `year_release` < 1990 and remove `NA` values. 
 + Then pipe that into a `ggplot()` statement that plots an x-y plot of `box_office` 

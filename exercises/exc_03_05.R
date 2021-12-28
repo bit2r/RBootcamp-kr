@@ -1,9 +1,9 @@
 library(dplyr)
 biopics <- readRDS("data/biopics.rds")
 
-#add your comparison to the end of this filter statement
+# 이 filter 구문 끝에 비교 연산 표현식을 추가하세요.
 crimeFilms <- filter(biopics, year_release > 1980 & 
     type_of_subject == "Criminal")
     
-#show number of rows in crimeFilms
+# crimeFilms이 몇 건인지 보이세요.
 
