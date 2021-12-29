@@ -324,8 +324,7 @@ biopics %>% filter(race_known == "Known") %>%
 
 <exercise id="14" title="group_by()/summarize()">
 
-`group_by()` doesn't do anything by itself. But when combined with `summarize()`, you can 
-calculate metrics (such as `mean`, `max` - the maximum, `min`, `sd` - the standard deviation) across groups. For example:
+`group_by()`는 스스로 아무것도 하지 않습니다. 그러나 `summarize()`와 함께 사용하여, 그룹별로 메트릭(metrics, 최솟값, 최댓값, 평균, 표준편차와 같은 통계 지표)을 계산할 수 있습니다. 다음 예를 보세요.:
 
 ```{r}
 countryMeans <- biopics %>% 
@@ -334,25 +333,21 @@ countryMeans <- biopics %>%
                     summarize(mean_box_office = mean(box_office))
 ```
 
-Here we want to calculate the mean `box_office` by `country`. However, in order to do that, we first need to remove
-any rows that have `NA` values in `box_office` that may confound our calculation.
+여기서 우리는 `country`별로 `box_office`의 평균을 구하려 합니다. 그러기 위해서 우리는 먼저, 집계를 작업의 방해 요소인 결측치(NA)가 있는 행(관측치)을 제거해야 합니다. 
 
-Let's ask a tough question. Is there a difference between mean `box_office` 
-between the two `subject_sex` categories? 
+어려운 질문 하나 하겠습니다. 범주형 변수인 `subject_sex`의 두 범주(수준, levels)의 `box_office` 평균은 차이가 있습니까? 
 
 ### 학습 지침
 
-First use `filter()` to remove the NA values. Then, use `group_by()` and `summarize()` to 
-calculate the mean `box_office` by `subject_sex`, naming the summary
-variable as `mean_bo_by_gender`.  Assign the output to `gender_box_office`. 
+먼저 `filter()`로 NA를 제거합니다. 그런 다음, `group_by()`와 `summarize()`로 `subject_sex`별  `box_office`의 평균을 계산하여 `mean_bo_by_gender` 이름의 변수를 만듭니다. 마지막으로 결과를 `gender_box_office`에 할당합니다. 
 
 <codeblock id="03_14">
 </codeblock>
 </exercise>
 
-<exercise id="15" title="Counting Stuff">
+<exercise id="15" title="건수 세기">
 
-What does the following code do? Try it out in the console!
+다음 코드는 무슨 작업을 수행할까요? 콘솔에서 실행해 보세요!
 
 ```{r}
 biopics %>% group_by(type_of_subject) %>% summarize(count=n())
@@ -363,157 +358,151 @@ biopics %>% group_by(type_of_subject) %>% summarize(count=n())
 
 
 <choice>
-<opt text="just shows the regular `biopics` `data.frame`">
-Nope. Try it out and see what it does.</opt>
-<opt text="counts each `type_of_subject` and puts it in another table" correct="true">Now you know how to use `group_by()` and `summarize()` to count categories.
+<opt text="단지 `biopics` 데이터 프레임을 보여줍니다.">
+ 실행해 보고 어떤 작업을 수행하는지 확인해보세요.</opt>
+<opt text="`type_of_subject`의 범주별 건수를 계산하고, 그 결과를 집계 테이블에 넣습니다." correct="true">이제 `group_by()`와 `summarize()`를 사용하여 범주별로 데이터 건수를 계산하는 방법을 알게 되었습니다.
 </opt>
 </choice>
 </exercise>
 
 <exercise id="16" title="arrange()">
 
-`arrange()` lets you sort by a variable. If you provide multiple variables, the variables are 
-arranged within each other. For example:
+`arrange()`는 지정한 변수를 기준으로 데이터를 정렬합니다. 만약 여러 개의 변수를 지정하면, 지정한 변수의 배열을 기준으로 정렬합니다. 예를 들어:
 
 ```{r}
 biopics %>% arrange(country, year_release)
 ```
 
-This statement will sort the data by `country` first, and then within each `country` category, 
-it will sort by `year_release`.
+이 구문은 먼저 `country` 기준으로 정렬한 다음에, 정렬된 `country` 범주안에서 `year_release` 기준으로 정렬합니다.
 
 ### 학습 지침
 
-Sort `biopics` by `year_release` then by `country`. Assign the output to `biopics_sorted`.
+`biopics`를 `year_release`, `country`를 기준으로 정렬합니다. 그리고 결과를 `biopics_sorted`에 할당합니다.
 
 <codeblock id="03_16">
 </codeblock></exercise>
 
 <exercise id="17" title="select()">
 
-The final verb we'll learn is `select()`. `select()` allows you to: 
+우리가 배울 마지막 함수는 `select()`입니다. `select()`로 다음을 수행할 수 있습니다.: 
 
-1) extract columns, 
-2) reorder columns or 
-3) remove columns from your data, as well as 
-4) rename your data. 
+1) 컬럼 추출
+2) 컬럼의 순서 변경
+3) 데이터에서 컬럼 제거 
+4) 데이터에서 컬럼 이름 변경 
 
-For example, look at the following code:
+예를 들어, 다음 코드를 보세요.:
 
 ```{r}
-biopics %>% select(movieTitle=title, box_office)
+biopics %>% select(movieTitle = title, box_office)
 ```
-Here, we're just extracting two columns (`title_of_movie`, `box_office`). Notice we also renamed `title` to `movieTitle`.
+이 코드는 두 개의 컬럼(`title_of_movie`, `box_office`)만 추출합니다. 그리고 추출한 `title`의 이름을 `movieTitle`로 변경합니다.
 
 ### 학습 지침
 
-Use `select` to extract the following variables: `title` (rename it `movieTitle`), `box_office` and `subject_sex` and assign them to a new table called `threeVarTable`.
++ `select()`로 `title`, `box_office`, `subject_sex` 변수를 추출하세요.
++ 이때, 추출한 `title`의 이름을 `movieTitle`로 변경하세요. 
++ 추출한 결과를 `threeVarTable`에 할당하세요.
 
 <codeblock id="03_17">
 </codeblock></exercise>
 
-<exercise id="18" title="Chester Ismay's Mantra">
+<exercise id="18" title="`select()`와 `filter()` 비교">
 
-What is the difference between `select()` and `filter()?`
+`select()`와 `filter()의 차이점은 무엇입니까?`
 
 <choice>
-<opt text="`select()` works on booleans, whereas `filter()` works on all data types">Nope. Both of these verbs don't care what data type you use.
+<opt text="`select()`는 부울(booleans)에서 작동하는 반면, `filter()`는 모든 데이터 유형에서 작동합니다.">이 두 함수를 사용하는데, 데이터 유형은 상관없습니다.
 </opt>
-<opt text="`select()` only works after `filter()`">Not true. You can use `filter()` and `select()` in any order!
+<opt text="`select()`는 `filter()` 이후에만 작동합니다.">`select()`와 `filter()`는 순서에 상관없이 사용할 수 있습니다!
 </opt>
-<opt text="`select()` works on columns, `filter()` works on rows" correct = "true">
-Welcome to the cult of `dplyr`! Your secret decoder ring is in the mail.
+<opt text="`select()`는 열에서 작동하고, `filter()`는 행에서 작동합니다." correct = "true">
+`dplyr` 숭배 집단에 오신 것을 환영합니다! 당신의 비밀해독 반지는 우편물에 있습니다.
 </opt>
 </choice>
 </exercise>
 
-<exercise id="19" title="Challenge 1: Putting it all together">
+<exercise id="19" title="도전 1: 함수들을 통합하기">
 
-Now here comes the fun part. Chaining `dplyr` verbs together to accomplish some data cleaning and transformation.
+이제 재미있는 작업에 도전합니다. 데이터 정제 및 변수 변환을 수행하기 위해서 `dplyr` 함수들을 묶어나가겠습니다.
 
-For a reference while you work, you can use the `dplyr` cheatsheet here: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+당신은 이 작업을 수행하는 동안 [`dplyr` 치트 시트](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)를 참고해도 됩니다.
 
 ### 학습 지침
 
-+ For the `biopics` data, `filter()` the data so that we only cover movies from 2000 to 2014. (`year_release` is the variable you want.)
-+ Filter out the NAs in `box_office`.
-+ Then  use `mutate()` to code a new variable, `box_office_per_subject`. (The two variables you need here are `box_office` and `number_of_subjects`.)
-+ Assign this statement to `biopics_new`.
-+ Run `summary()` on `biopics_new` to confirm that your statement worked.
++ `biopics` 데이터에서, `filter()`를 사용해서 2000년부터 2014년까지 개봉된 영화를 추립니다. (`year_release` 변수가 필요할 것입니다.)
++ 필터링하여 `box_office`에서 NA가 포함된 행을 제거합니다.
++ `mutate()`를 수행하여 신규 파생변수 `box_office_per_subject`를 생성합니다. (이 작업에 필요한 변수는 `box_office`와 `number_of_subjects`입니다.)
++ 수행한 결과를 `biopics_new`에 할당합니다.
++ `biopics_new`에 대해서 `summary()`를 수행해서 작업이 정상적으로 수행되었는지 확인합니다.
 
 <codeblock id="03_19">
 </codeblock></exercise>
 
-<exercise id="20" title="Challenge 2: Show your stuff">
+<exercise id="20" title="도전 2: 실적 보이기">
 
-Answer the question: Do movies where we know the race is known (`race_known` == TRUE) make more 
-money than movies where the race is not known (`race_known`== FALSE) grouped by country? 
-Which `race_known`/`country` combination made the highest amount of money?
+인종이 국가별로 분류된(`race_known` == TRUE) 영화가 분류되지 않은(`race_known`== FALSE) 영화보다 더 많은 돈을 벌 수 있을까요?
+어떤 `race_known`/`country`의 조합이 가장 많은 수익을 올렸습니까?
 
 ### 학습 지침
 
-+ You'll need to do a `filter` step first to remove `NA` values from `box_office` before you do  anything. 
-+ Then think of what variables you need to `group_by`. 
-+ Finally, figure out what do you need to `summarize` (assign the value to `mean_box_office`) 
++ 당신은 다른 작업에 앞서, 제일 먼저 `filter()` 작업으로 `box_office`가 `NA`인 행을 제거해야 합니다.
++ 그리고 어떤 변수가 `group_by()`에 필요한지 생각해 보세요. 
++ 마지막으로, 원하는 집계를 생성하는 `summarize()`를 수행합니다. (집계된 통계량을 `mean_box_office`에 할당합니다.) 
 and `arrange` on (don't forget to use `desc`!)? 
-+ Assign the output to `race_country_box_office`.
-+ Show `race_country_box_office`.
++ 결과를 `race_country_box_office`에 할당하세요.
++ `race_country_box_office`을 조회하세요.
 
 
 
 <codeblock id="03_20">
 You can do this!</codeblock></exercise>
 
-<exercise id="21" title="Challenge 3: Putting together what we know about ggplot2 and dplyr">
+<exercise id="21" title="도전 3: ggplot2와 dplyr 함께 사용하기">
 
-Now we're cooking with fire. You can directly pipe the output of a `dplyr` pipeline
-into a `ggplot2` statement. For example:
+이제 우리는 아주 따끈한 요리를 만들 것입니다. 당신은 `dplyr`의 결과를 파이프라인을 통해서 `ggplot2` 구문으로 보낼 것입니다. 
+다음 예를 보세요.:
 
 ```{r}
 biopics %>%
     filter(year_release >= 2000 & year_release <= 2014) %>%
     mutate(box_office_per_subject = box_office / number_of_subjects) %>%
-    ggplot(aes(x = year_release, y=box_office_per_subject)) +
+    ggplot(aes(x = year_release, y = box_office_per_subject)) +
     geom_point()
 ```
 
-Note that we use `%>%` to pipe our statement into the `ggplot()` function. The
-tricky thing to remember is that everything after the `ggplot()` is connected with
-`+`, and not `%>%`. 
+우리는 `%>%`를 사용해서 `dplyr` 구문을 `ggplot()`에 파이프링한다는 점에  유의해야 합니다. 기억해야 할  중요한 점은 `ggplot()` 함수 이후의 모든 구문들은 `+`로 연결해야 한다는 것입니다. `%>%`가 아닙니다.
 
-Also note: we don't assign a `data` variable in the `ggplot()` statement. We are piping
-in the data. 
+또다른 참고: `ggplot()` 함수에서 `data` 인수에 값을 지정하지 않습니다. 단지 그것을 파이프로 전달받을 뿐입니다. 
 
-Are you sick of `biopics` yet? I promise this is the last time we use this dataset.
+`biopics`이 슬슬 지겨워지나요? 이 데이터 세트를 사용하는 것은 이번이 마지막이라 약속합니다.
 
 ### 학습 지침
 
-+ First, filter `biopics` to have `year_release` < 1990 and remove `NA` values. 
-+ Then pipe that into a `ggplot()` statement that plots an x-y plot of `box_office` 
-(use `geom_point()`) where `x=year_release` and `y=log(box_office)`. 
-+ Color the points by `person_of_color`. 
-+ Assign the output to `bPlot` and print it to the screen using `print(bPlot)`.
++ 먼저, `biopics`의  `year_release` < 1990 조건으로 필터링합니다. 그리고 `box_office`의 값이 `NA`인 건을 제거합니다. 
++ 그리고 그결과를 파이프로, `box_office`을 x-y 좌표에 플로팅하는 `ggplot()` 구문에 넘겨줍니다. 
++ 기하학적 표현을 위해 인수값을 `x=year_release`, `y=log(box_office)`로 하는 `geom_point()`을 사용합니다.   
++ 포인트(점)의 색상은 `person_of_color`을 이용합니다. 
++ 시각화 결과를 `bPlot`에 저장합니다. 그리고 화면 출력을 위해서 `print(bPlot)`을 실행합니다.
 
 <codeblock id="03_21">
 </codeblock></exercise>
 
-<exercise id="22" title="What you learned in this chapter">
+<exercise id="22" title="이 챕터에서 배운 내용">
 
-- How to use `%>%` (the pipe)
+- `%>%`(파이프)의 사용 방법
 - `dplyr::filter()`
 - `dplyr::mutate()`
 - `dplyr::group_by()/dplyr::summarize()`
 - `dplyr::arrange()`
 - `dplyr::select()`
-- How to put it all together!
+- 이들 함수를 함께 사용하는 방법!
 
-Good job for making it through this chapter! You're well on your way
-to becoming a `tidyverse` ninja!
+이 챔터를 잘 마치셨습니다! 당신은 `tidyverse`의 닌자가 되는 길을 잘 헤쳐나가고 있습니다!
 
-**More Resources**
+**추가 리소스**
 
-- The [Data Transformation](https://r4ds.had.co.nz/transform.html) chapter of R for Data Science is another great place to learn about the basics of `dplyr`.
-- The [Pipes](https://r4ds.had.co.nz/pipes.html) chapter of R for Data Science has a great discussion on why you should consider using pipes in your workflows.
-
+- [데이터 변환](https://bookdown.org/sulgi/r4ds/data-transform.html), R을 활용한 데이터 과학(R for Data Science)의 이 챕터도 `dplyr`의 기초를 배울 수 있는 좋은 길잡이입니다.
+- [Pipes](https://r4ds.had.co.nz/pipes.html), R을 활용한 데이터 과학(R for Data Science)의 이 챕터에서는 워크플로우에서 파이프를 사용해야 하는 이유에 대해서 자세하게 설명합니다.
 </exercise>
 
