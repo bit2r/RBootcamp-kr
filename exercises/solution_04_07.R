@@ -1,14 +1,17 @@
 library(tidyr)
 library(dplyr)
 library(ggplot2)
-MouseBalanceTimeSeries <- read.csv("data/mouse.csv")
+MouseBalanceTimeSeries <- read.csv("data/mouse.csv", row.names = 1)
 
 gatheredMouse <- MouseBalanceTimeSeries %>% 
-  gather(key=measurementStatus, value=time, -mouseID) %>%
+  pivot_longer(cols = -mouseID, 
+               names_to = "measurementStatus", 
+               values_to = "time") %>% 
   filter(!is.na(time)) %>% 
-  mutate(time = as.numeric(time)) %>%
+  # measurementStatus를 두개의 변수로 분리
   separate(measurementStatus, 
-           c("intervention","replicate"), 
-           sep="Treat")
+           c("intervention", "replicate"), 
+           sep = "Treat")
 
-ggplot(gatheredMouse, aes(x=intervention, y=time)) + geom_boxplot()
+ggplot(gatheredMouse, aes(x = intervention, y = time)) + 
+  geom_boxplot()

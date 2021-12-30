@@ -5,14 +5,14 @@ fertilityTidy <- read.csv("data/fertility_tidy.csv")
 
 fertilityMeanByCountry <- fertilityTidy %>% 
   group_by(Country) %>% 
-  summarize(meanCountryRate=mean(fertilityRate))
+  summarize(meanCountryRate = mean(fertilityRate))
     
-#show fertlityMeanByCountry
+# fertlityMeanByCountry를 조회합니다.
 fertilityMeanByCountry
         
 fertilityMeanByYear <- fertilityTidy %>% 
   group_by(Year) %>% 
-  summarize(meanYearRate=mean(fertilityRate))
+  summarize(meanYearRate = mean(fertilityRate))
         
-#show fertilityMeanByYear
+# fertilityMeanByYear를 조회합니다.
 fertilityMeanByYear

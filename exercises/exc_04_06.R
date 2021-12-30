@@ -5,10 +5,10 @@ fertilityTidy <- read.csv("data/fertility_tidy.csv")
 
 fertilityMeanByCountry <- fertilityTidy %>%
 
-#show fertlityMeanByCountry
+# fertlityMeanByCountry를 조회합니다.
 fertilityMeanByCountry
 
 fertilityMeanByYear <- fertilityTidy %>%
 
-#show fertilityMeanByYear
+# fertilityMeanByYear를 조회합니다.
 fertilityMeanByYear

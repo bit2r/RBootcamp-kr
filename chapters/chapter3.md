@@ -1,5 +1,5 @@
 ---
-title: 'Chapter 3: dplyr 입문' 
+title: '3장: dplyr 입문' 
 description: 데이터를 ggplot2과 유사한 형식으로 조작하는 방법 학습
 prev: /chapter2
 next: /chapter4
@@ -8,7 +8,7 @@ type: chapter
 ---
 <exercise id="1" title="dplyr 소개">
 
-우리는 `ggplot2` 패러다임에 부합하는 데이터 세트를 다뤄보았습니다. 그러나 우리가 접하는 대부분의 데이터는, 실제로는 지저분하거나(결측치 등이 포함되며) 완전히 다른 형식입니다. 이 챕터에서는 데이터 프레임을 조작할 수 있는, 'dplyr'라는 'tidyverse' 패키지 군의 가장 강력한 도구 중 하나를 살펴보겠습니다.
+우리는 `ggplot2` 패러다임에 부합하는 데이터 세트를 다뤄보았습니다. 그러나 우리가 접하는 대부분의 데이터는, 실제로는 지저분하거나(결측치 등이 포함되며) 완전히 다른 형식입니다. 이 장에서는 데이터 프레임을 조작할 수 있는, 'dplyr'라는 'tidyverse' 패키지 군의 가장 강력한 도구 중 하나를 살펴보겠습니다.
 dplyr는 데이터 클린징을 수행하는 대부분의 성가신 작업에 대응하는 함수들이 있어 매우 유용합니다.
 
 특히, `dplyr`에서 제공하는 다음의 여섯 가지 기본적인 동작을 살펴보겠습니다.:
@@ -488,7 +488,7 @@ biopics %>%
 <codeblock id="03_21">
 </codeblock></exercise>
 
-<exercise id="22" title="이 챕터에서 배운 내용">
+<exercise id="22" title="이 장에서 배운 내용">
 
 - `%>%`(파이프)의 사용 방법
 - `dplyr::filter()`
@@ -502,7 +502,7 @@ biopics %>%
 
 **추가 리소스**
 
-- [데이터 변환](https://bookdown.org/sulgi/r4ds/data-transform.html), R을 활용한 데이터 과학(R for Data Science)의 이 챕터도 `dplyr`의 기초를 배울 수 있는 좋은 길잡이입니다.
-- [Pipes](https://r4ds.had.co.nz/pipes.html), R을 활용한 데이터 과학(R for Data Science)의 이 챕터에서는 워크플로우에서 파이프를 사용해야 하는 이유에 대해서 자세하게 설명합니다.
+- [데이터 변환](https://bookdown.org/sulgi/r4ds/data-transform.html), R을 활용한 데이터 과학(R for Data Science)의 이 장(챕터)도 `dplyr`의 기초를 배울 수 있는 좋은 길잡이입니다.
+- [Pipes](https://r4ds.had.co.nz/pipes.html), R을 활용한 데이터 과학(R for Data Science)의 이 장(챕터)에서는 워크플로우에서 파이프를 사용해야 하는 이유에 대해서 자세하게 설명합니다.
 </exercise>
 

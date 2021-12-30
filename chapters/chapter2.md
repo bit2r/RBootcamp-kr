@@ -1,5 +1,5 @@
 ---
-title: 'Chapter 2: ggplot2과 범주형 데이터' 
+title: '2장: ggplot2과 범주형 데이터' 
 description: ggplot2 이용한 시각화 추가 정보 학습
 prev: /chapter1
 next: /chapter3
@@ -206,7 +206,7 @@ ggplot(pets, aes(x=name)) + geom_bar() +
 </codeblock>
 </exercise>
 
-<exercise id="14" title="이 챕터에서 배운 내용">
+<exercise id="14" title="이 장에서 배운 내용">
 
 - 범주형 데이터를 시각화하는 방법
 - 세 가지 플롯: `geom_bar()`, `geom_boxplot()`, `geom_violin()`

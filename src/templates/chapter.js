@@ -18,8 +18,8 @@ const Template = ({ data }) => {
     const [completed, setCompleted] = useLocalStorage(`${courseId}-completed-${id}`, [])
     const html = renderAst(htmlAst)
     const buttons = [
-        { slug: prev, text: '« 이전 챕터' },
-        { slug: next, text: '다음 챕터 »' },
+        { slug: prev, text: '« 이전 장' },
+        { slug: next, text: '다음 장 »' },
     ]
 
     return (

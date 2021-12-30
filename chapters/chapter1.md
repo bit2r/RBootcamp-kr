@@ -1,5 +1,5 @@
 ---
-title: 'Chapter 1: ggplot2의 마법' 
+title: '1장: ggplot2의 마법' 
 description: ggplot2로 데이터의 변수를 통계 플롯으로 시각화는 방법 학습
 prev: null
 next: /chapter2
@@ -160,7 +160,7 @@ ggplot 코드를 보고 데이터를 조작하는지의 여부를 확인해 보�
 <codeblock id="01_08">
 </codeblock></exercise>
 
-<exercise id="9" title="이 챕터에서 배운 내용">
+<exercise id="9" title="이 장에서 배운 내용">
 
 - `ggplot2`의 기본 문법.
 - `ggplot2`의 `geom_point()`와 `geom_bar()`를 사용하여 x-y 좌표에 데이터 플로팅.
@@ -171,7 +171,7 @@ ggplot 코드를 보고 데이터를 조작하는지의 여부를 확인해 보�
 
 **추가 리소스**
 
-- [R For Data Science: 데이터 시각화](https://bookdown.org/sulgi/r4ds/data-visualisation.html): 데이터 과학을 위한 R의 시각화 챕터. 특히 유용한 것은 [심미성 매핑](https://bookdown.org/sulgi/r4ds/data-visualisation.html#심미성-매핑)과 [자주 일어나는 문제들](https://bookdown.org/sulgi/r4ds/data-visualisation.html#자주-일어나는-문제들) 섹션입니다.
+- [R For Data Science: 데이터 시각화](https://bookdown.org/sulgi/r4ds/data-visualisation.html): 데이터 과학을 위한 R의 시각화 장. 특히 유용한 것은 [심미성 매핑](https://bookdown.org/sulgi/r4ds/data-visualisation.html#심미성-매핑)과 [자주 일어나는 문제들](https://bookdown.org/sulgi/r4ds/data-visualisation.html#자주-일어나는-문제들) 섹션입니다.
 - `ggplot2`의 스케일과 좌표계처럼 플롯을 수정할 수 있는 또 다른 방법을 학습하려면 [그래픽 레이어 문법](https://bookdown.org/sulgi/r4ds/data-visualisation.html#그래픽-레이어-문법)을 참고하세요.
 
 <codeblock id="01_09">
