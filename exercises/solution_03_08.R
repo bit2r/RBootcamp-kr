@@ -1,4 +1,4 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 filteredBiopics <- filter(biopics, !is.na(box_office))

@@ -1,32 +1,36 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(broom)
 
 fishdata <- read.csv("data/fisherman_mercury_modified.csv") %>%
   mutate(fisherman = factor(fisherman))
 
-# Here are our two models
+# 여기에 두 모델이 있습니다.
 fit_univariate <- lm(total_mercury ~ fisherman, data = fishdata)
 fit_multiple <-
   lm(total_mercury ~ fisherman + weight + fishmlwk, data = fishdata)
 
-# Tidy 'em up
+# 모델을 잘 정리합니다.
 fit_univariate_tidy <- ____
   
 fit_multiple_tidy <- ____
   
-# Bind them
+# 두 모델을 묶습니다.
 both_tidy <- bind_rows("univariate" = ___,
-                         "multiple" = ___,
-                         .id = "model")
+                       "multiple" = ___,
+                       .id = "model")
 both_tidy
 
-# Same with glance (we can try doing this in one line)
+# glance로 개별 모델 정보를 한 줄로 묶습니다.
 both_glance <- bind_rows(
   "univariate" = glance(___),
   "multiple" = glance(___),
   .id = "model"
 )
-both_glance
 
-# Show just fisherman's covariate information
+# 실습 환경상의 특성으로 인해 결과를 나눠서 출력합니다.
+# both_glance
+both_glance[, 1:7]
+both_glance[, 8:13]
+
+# 어부 여부의 공변량 정보만 출력합니다.
 both_tidy %>% ___(term == ___)

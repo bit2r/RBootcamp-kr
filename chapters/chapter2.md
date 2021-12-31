@@ -22,6 +22,8 @@ R에는 두 가지의 팩터가 있습니다.:
 + 콘솔을 이용해서 `pets` 데이터 세트를 살펴 봅니다.
 + `dplyr` 패키지의 `glimpse()` 함수로 `pets`에 포함된 범주형 데이터들의 수준(levels)을 살펴봅니다.
 
+(역자 주) library(dplyr)을 실행하면, 패키지를 로드하면서 여러 정보가 콘솔에 출력됩니다. 그러나 이 정보는 연습문제를 학습하는데 혼란을 줍니다. 그래서 **`suppressPackageStartupMessages()` 함수를 감싸서 함수 로드 시 출력되는 메시지를 제거**합니다. **앞으로 관련된 모든 연습문제에 적용**됩니다.
+
 <codeblock id="02_01">
 </codeblock></exercise>
 
@@ -54,8 +56,8 @@ R에는 두 가지의 팩터가 있습니다.:
 다음 예제처럼 `geom_bar()` 함수에서 `color`에 `"black"`을 매핑하면 어떻게 동작하나요? 
 
 ```{r}
-ggplot(pets, aes(x=animal, fill=shotsCurrent)) + 
-  geom_bar(color="black")
+ggplot(pets, aes(x = animal, fill = shotsCurrent)) + 
+  geom_bar(color = "black")
 ```
 
 <img src = "pet_black.png">
@@ -102,11 +104,11 @@ ggplot(pets, aes(x=animal, fill=shotsCurrent)) +
 여기서 우리는, 막대 그래프에서 `shotsCurrent`을 패싯으로 지정합니다.
 
 ```{r}
-ggplot(data=pets, mapping=aes(x=name)) + geom_bar() + 
-  ## "~" 표기법을 사용해서 패싯을 지정합니다.
-  facet_wrap(facets=~shotsCurrent) + 
-  ## 더 나은 가독성을 취해서 x-축 텍스트에 각도를 부여합니다.
-  theme(axis.text.x = element_text(angle=45))
+ggplot(data = pets, mapping = aes(x = name)) + geom_bar() + 
+  # "~" 표기법을 사용해서 패싯을 지정합니다.
+  facet_wrap(facets = ~shotsCurrent) + 
+  # 더 나은 가독성을 취해서 x-축 텍스트에 각도를 부여합니다.
+  theme(axis.text.x = element_text(angle = 45))
 ```
 
 이 코드를 실행하면, 각 패싯의 범주에서 몇몇 수준의 공백이 있음을 알 수 있습니다. 
@@ -123,9 +125,9 @@ scale 인수값에 `free_x`을 대입합니다. "Morris"라는 이름의 애완�
 패싯을 통해서 우리는 다음을 수행할 수 있습니다.:
 
 ```{r}
-ggplot(pets, aes(x=name)) + geom_bar() + 
-  facet_wrap(facets=~shotsCurrent, scale="free_x") +
-  theme(axis.text.x = element_text(angle=45))
+ggplot(pets, aes(x = name)) + geom_bar() + 
+  facet_wrap(facets = ~shotsCurrent, scale = "free_x") +
+  theme(axis.text.x = element_text(angle = 45))
 ```
 
 <choice>

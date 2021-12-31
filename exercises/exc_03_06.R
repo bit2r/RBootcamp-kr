@@ -1,4 +1,4 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 and_result <- filter(biopics, year_release > 1980 & type_of_subject == 'Criminal')

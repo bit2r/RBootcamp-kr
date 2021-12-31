@@ -1,4 +1,4 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 # 여기에 mutate()을 사용해서 race_and_gender 변수를 파생하세요. 

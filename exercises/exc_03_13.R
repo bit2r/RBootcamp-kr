@@ -1,5 +1,5 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 biopics %>%
-  filter(-----)
+  filter(____)

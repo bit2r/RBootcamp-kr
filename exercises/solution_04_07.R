@@ -1,5 +1,5 @@
+suppressPackageStartupMessages(library(dplyr))
 library(tidyr)
-library(dplyr)
 library(ggplot2)
 MouseBalanceTimeSeries <- read.csv("data/mouse.csv", row.names = 1)
 

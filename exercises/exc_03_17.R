@@ -1,7 +1,7 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 threeVarTable <- biopics %>% 
-  select(----, ----, ----)
+  select(____, ____, ____)
 
 head(threeVarTable)

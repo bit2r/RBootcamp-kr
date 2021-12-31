@@ -1,7 +1,7 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 biopics_sorted <- biopics %>%
-  arrange(------, ------)
+  arrange(____, ____)
 
 head(biopics_sorted)

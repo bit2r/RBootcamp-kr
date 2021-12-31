@@ -1,10 +1,10 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 
 fishdata <- read.csv("data/fisherman_mercury_modified.csv") %>%
   mutate(fisherman = factor(fisherman))
 
-# Calculate mean and sd of mercury by fisherman status
+# 어부 여부별 평균과 표준편차 계산
 fishdata %>%
-    group_by() %>%
-    summarize(  mean_total_mercury = , 
-                sd_total_mercury = )
+  group_by(___) %>%
+  summarize(mean_total_mercury = ___, 
+            sd_total_mercury = ___)

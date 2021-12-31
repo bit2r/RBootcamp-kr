@@ -1,5 +1,5 @@
+suppressPackageStartupMessages(library(dplyr))
 library(tidyr)
-library(dplyr)
 library(ggplot2)
 fertilityTidy <- read.csv("data/fertility_tidy.csv")
 

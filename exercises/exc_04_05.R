@@ -1,16 +1,16 @@
+suppressPackageStartupMessages(library(dplyr))
 library(tidyr)
-library(dplyr)
-library(readr)
+suppressPackageStartupMessages(library(readr))
 health_code_example <- 
-  read_csv("data/healthExample.csv")
+  read_csv("data/healthExample.csv", show_col_types = FALSE)
 
-health_code_separated <- 
-  health_code_example %>%
-  separate(col = -----, 
-           into = c(----,----), 
-           sep = ----)
+health_code_separated <- health_code_example %>%
+  separate(
+    col = ____, 
+    into = c(____, ____), 
+    sep = ____)
         
 patients410 <- health_code_separated %>% 
-  filter(HealthCode == ----)
+  filter(HealthCode == ____)
 
 patients410

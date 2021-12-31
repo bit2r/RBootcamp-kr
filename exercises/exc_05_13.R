@@ -1,24 +1,25 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(broom)
 library(ggplot2)
 
 fishdata <- read.csv("data/fisherman_mercury_modified.csv") %>%
   mutate(fisherman = factor(fisherman))
 
-# Here are our models again
-fit_univariate <- lm(total_mercury~fisherman,data=fishdata)
-fit_multiple <- lm(total_mercury~fisherman+weight+fishmlwk,data=fishdata)
+# 여기에 두 모델이 있습니다.
+fit_univariate <- lm(total_mercury ~ fisherman, data = fishdata)
+fit_multiple <-
+  lm(total_mercury ~ fisherman + weight + fishmlwk, data = fishdata)
 
-# save augmented data here
+# 개별 관측치 레벨(행별로)로 예측된 데이터와 관련 정보
 fit_multiple_augment <- ____
 fit_univariate_augment <- ____
 
-# bind rows
+# 두 모델을 묶습니다.
 augmented_data <- bind_rows("univariate" = ____,
-                              "multiple" = ____,
-                              .id = "model")
+                            "multiple" = ____,
+                            .id = "model")
 
-# scatterplot of total mercury (x-axis) vs fitted values (y-axis), color fishmlwk and shape fisherman
+# 총 수은(x-축)과 예측값 (y-축)의 산점도로 fishmlwk로 색상과 fisherman로 포인트의 심볼 표현
 ggplot(augmented_data, aes(____)) +
   geom_point() +
   geom_abline(____, ____) +

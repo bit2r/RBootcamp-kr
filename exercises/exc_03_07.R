@@ -1,7 +1,7 @@
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 biopics <- readRDS("data/biopics.rds")
 
 biopicsArt <- biopics %>%
-  filter(---- %in% ------)
+  filter(____ %in% ____)
 
 head(biopicsArt)
